@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        #quiz {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        #next {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz">
+        <h1 id="question"></h1>
+        <button id="btn0"></button>
+        <button id="btn1"></button>
+        <button id="btn2"></button>
+        <button id="btn3"></button>
+    </div>
+    <button id="next">Next</button>
+
+    <script>
+        var questions = [
+            {
+                question: "What is the capital of France?",
+                answers: ["Paris", "London", "Rome", "Berlin"],
+                correctAnswer: 0
+            },
+            {
+                question: "What is the capital of England?",
+                answers: ["Paris", "London", "Rome", "Berlin"],
+                correctAnswer: 1
+            },
+            // Add more questions as needed
+        ];
+        var currentQuestion = 0;
+
+        function showQuestion() {
+            var question = questions[currentQuestion];
+            document.getElementById('question').textContent = question.question;
+            for (var i = 0; i < question.answers.length; i++) {
+                var btn = document.getElementById('btn' + i);
+                btn.textContent = question.answers[i];
+                btn.onclick = (function(i) {
+                    return function() {
+                        if (i === question.correctAnswer) {
+                            alert("Correct!");
+                        } else {
+                            alert("Incorrect!");
+                        }
+                    }
+                })(i);
+            }
+        }
+
+        document.getElementById('next').addEventListener('click', function() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                alert("Quiz finished!");
+            }
+        });
+
+        showQuestion();
+    </script>
+</body>
+</html>
